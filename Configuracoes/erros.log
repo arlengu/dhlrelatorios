@@ -1,0 +1,138 @@
+Falha na conexão com o banco de dados PDO: SQLSTATE[HY000]: General error: 1298 Unknown or incorrect time zone: 'America/Sao_Paulo'Falha na conexão com o banco de dados PDO: SQLSTATE[HY000]: General error: 1298 Unknown or incorrect time zone: 'America/Sao_Paulo'Falha na conexão com o banco de dados PDO: SQLSTATE[HY000]: General error: 1298 Unknown or incorrect time zone: 'America/Sao_Paulo'Falha na conexão com o banco de dados PDO: SQLSTATE[HY000]: General error: 1298 Unknown or incorrect time zone: 'America/Sao_Paulo'Falha na conexão com o banco de dados PDO: SQLSTATE[HY000]: General error: 1298 Unknown or incorrect time zone: 'America/Sao_Paulo'Falha na conexão com o banco de dados PDO: SQLSTATE[HY000]: General error: 1298 Unknown or incorrect time zone: 'America/Sao_Paulo'Falha na conexão com o banco de dados PDO: SQLSTATE[HY000]: General error: 1298 Unknown or incorrect time zone: 'America/Sao_Paulo'Falha na conexão com o banco de dados PDO: SQLSTATE[HY000]: General error: 1298 Unknown or incorrect time zone: 'America/Sao_Paulo'Falha na conexão com o banco de dados PDO: SQLSTATE[HY000]: General error: 1298 Unknown or incorrect time zone: 'America/Sao_Paulo'Falha na conexão com o banco de dados: SQLSTATE[HY000]: General error: 1298 Unknown or incorrect time zone: 'America/Sao_Paulo'Falha na conexão com o banco de dados: SQLSTATE[HY000]: General error: 1298 Unknown or incorrect time zone: 'America/Sao_Paulo'Falha na conexão com o banco de dados PDO: SQLSTATE[HY000]: General error: 1298 Unknown or incorrect time zone: 'America/Sao_Paulo'Falha na conexão com o banco de dados PDO: SQLSTATE[HY000]: General error: 1298 Unknown or incorrect time zone: 'America/Sao_Paulo'Falha na consulta ao banco de dados: SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: NO)[14-Aug-2024 04:54:27 Europe/Berlin] Received Parameters - id: 1, status: Aprovado, fromOperation: 1, toOperation: 1, quantity: 5, epiid: 2, tamanhoid: 0
+[14-Aug-2024 04:54:27 Europe/Berlin] Saldo Verification Result: 
+[14-Aug-2024 04:55:04 Europe/Berlin] Received Parameters - id: 1, status: Aprovado, fromOperation: 1, toOperation: 1, quantity: 5, epiid: 2, tamanhoid: 0
+[14-Aug-2024 04:55:04 Europe/Berlin] Saldo Verification Result: 
+[14-Aug-2024 04:57:41 Europe/Berlin] Received Parameters - id: 1, status: Aprovado, fromOperation: 1, toOperation: 1, quantity: 5, epiid: 2, tamanhoid: 4
+[14-Aug-2024 04:57:41 Europe/Berlin] Saldo Verification Result: Array
+(
+    [quantidade] => 78
+)
+
+[14-Aug-2024 04:57:41 Europe/Berlin] Updated From Operation - quantity deducted: 5
+[14-Aug-2024 04:57:41 Europe/Berlin] Destination Verification Result: Array
+(
+    [quantidade] => 73
+)
+
+[14-Aug-2024 04:57:41 Europe/Berlin] Updated To Operation - quantity added: 5
+[14-Aug-2024 04:57:41 Europe/Berlin] Updated Status - id: 1, status: Aprovado
+[14-Aug-2024 04:59:53 Europe/Berlin] Received Parameters - id: 2, status: Aprovado, fromOperation: 2, toOperation: 1, quantity: 1, epiid: 2, tamanhoid: 4
+[14-Aug-2024 04:59:53 Europe/Berlin] Saldo Verification Result: Array
+(
+    [quantidade] => 2
+)
+
+[14-Aug-2024 04:59:53 Europe/Berlin] Updated From Operation - quantity deducted: 1
+[14-Aug-2024 04:59:53 Europe/Berlin] Destination Verification Result: Array
+(
+    [quantidade] => 78
+)
+
+[14-Aug-2024 04:59:53 Europe/Berlin] Updated To Operation - quantity added: 1
+[14-Aug-2024 04:59:53 Europe/Berlin] Updated Status - id: 2, status: Aprovado
+[14-Aug-2024 05:02:22 Europe/Berlin] Received Parameters - id: 4, status: Aprovado, fromOperation: 1, toOperation: 2, quantity: 50, epiid: 2, tamanhoid: 4
+[14-Aug-2024 05:02:22 Europe/Berlin] Saldo Verification Result: Array
+(
+    [quantidade] => 79
+)
+
+[14-Aug-2024 05:02:22 Europe/Berlin] Updated From Operation - quantity deducted: 50
+[14-Aug-2024 05:02:22 Europe/Berlin] Destination Verification Result: Array
+(
+    [quantidade] => 1
+)
+
+[14-Aug-2024 05:02:22 Europe/Berlin] Updated To Operation - quantity added: 50
+[14-Aug-2024 05:02:22 Europe/Berlin] Updated Status - id: 4, status: Aprovado
+[14-Aug-2024 14:44:14 Europe/Berlin] Received Parameters - id: 5, status: Aprovado, fromOperation: 1, toOperation: 2, quantity: 9, epiid: 2, tamanhoid: 4
+[14-Aug-2024 14:44:14 Europe/Berlin] Saldo Verification Result: Array
+(
+    [quantidade] => 29
+)
+
+[14-Aug-2024 14:44:14 Europe/Berlin] Updated From Operation - quantity deducted: 9
+[14-Aug-2024 14:44:14 Europe/Berlin] Destination Verification Result: Array
+(
+    [quantidade] => 51
+)
+
+[14-Aug-2024 14:44:14 Europe/Berlin] Updated To Operation - quantity added: 9
+[14-Aug-2024 14:44:14 Europe/Berlin] Updated Status - id: 5, status: Aprovado
+[14-Aug-2024 16:12:49 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: , Tamanho: 
+[14-Aug-2024 16:12:49 Europe/Berlin] Exception: Operação não encontrada.
+[14-Aug-2024 16:12:58 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: , Tamanho: 
+[14-Aug-2024 16:12:58 Europe/Berlin] Exception: Operação não encontrada.
+[14-Aug-2024 16:26:01 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: , Tamanho: 
+[14-Aug-2024 16:26:17 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: , Tamanho: 
+[14-Aug-2024 16:28:33 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: , Tamanho: 
+[14-Aug-2024 16:28:51 Europe/Berlin] Valores recebidos - EPI ID: 13, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:28:56 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:30:34 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: , Tamanho: 
+[14-Aug-2024 16:30:41 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:31:58 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: , Tamanho: 
+[14-Aug-2024 16:32:18 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:32:21 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:36:21 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: , Tamanho: 
+[14-Aug-2024 16:36:31 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:36:40 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:36:45 Europe/Berlin] Valores recebidos - EPI ID: 14, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:36:51 Europe/Berlin] Valores recebidos - EPI ID: 13, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:36:59 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:37:03 Europe/Berlin] Valores recebidos - EPI ID: 13, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:37:07 Europe/Berlin] Valores recebidos - EPI ID: 14, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:37:41 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:37:46 Europe/Berlin] Valores recebidos - EPI ID: 14, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:39:14 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:39:16 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:39:19 Europe/Berlin] Valores recebidos - EPI ID: 14, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:39:25 Europe/Berlin] Valores recebidos - EPI ID: 13, Operação: ITUPEVA, Tamanho: 7
+[14-Aug-2024 16:39:27 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 7
+[14-Aug-2024 16:41:45 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:41:49 Europe/Berlin] Valores recebidos - EPI ID: 14, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:41:58 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:42:02 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:42:10 Europe/Berlin] Valores recebidos - EPI ID: 14, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:42:14 Europe/Berlin] Valores recebidos - EPI ID: 13, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:42:19 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:44:27 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: VIANA, Tamanho: 
+[14-Aug-2024 16:44:37 Europe/Berlin] Valores recebidos - EPI ID: 13, Operação: VIANA, Tamanho: 
+[14-Aug-2024 16:44:41 Europe/Berlin] Valores recebidos - EPI ID: 14, Operação: VIANA, Tamanho: 
+[14-Aug-2024 16:44:44 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: VIANA, Tamanho: 
+[14-Aug-2024 16:45:17 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: VIANA, Tamanho: 
+[14-Aug-2024 16:45:32 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: VIANA, Tamanho: 
+[14-Aug-2024 16:47:52 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: , Tamanho: 
+[14-Aug-2024 16:48:00 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:48:06 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:48:10 Europe/Berlin] Valores recebidos - EPI ID: 14, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:48:23 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: VIANA, Tamanho: 
+[14-Aug-2024 16:48:30 Europe/Berlin] Valores recebidos - EPI ID: 13, Operação: VIANA, Tamanho: 
+[14-Aug-2024 16:48:34 Europe/Berlin] Valores recebidos - EPI ID: 14, Operação: VIANA, Tamanho: 
+[14-Aug-2024 16:48:37 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: VIANA, Tamanho: 
+[14-Aug-2024 16:48:39 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: VIANA, Tamanho: 
+[14-Aug-2024 16:49:03 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:49:04 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:50:01 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 16:51:57 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 17:20:23 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 18:52:59 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: VIANA, Tamanho: 
+[14-Aug-2024 19:31:42 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 19:34:59 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 19:35:32 Europe/Berlin] Valores recebidos - EPI ID: 13, Operação: VIANA, Tamanho: 
+[14-Aug-2024 19:35:35 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: VIANA, Tamanho: 
+[14-Aug-2024 19:35:56 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 19:36:18 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: VIANA, Tamanho: 
+[14-Aug-2024 19:46:05 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 19:46:19 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 19:53:50 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 19:54:07 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: , Tamanho: 
+[14-Aug-2024 19:54:13 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 19:54:26 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: , Tamanho: 
+[14-Aug-2024 19:54:35 Europe/Berlin] Valores recebidos - EPI ID: 13, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 19:54:37 Europe/Berlin] Valores recebidos - EPI ID: 14, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 19:54:41 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: ITUPEVA, Tamanho: 
+[14-Aug-2024 21:16:36 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: ITUPEVA, Tamanho: 
+[15-Aug-2024 01:36:36 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: ITUPEVA, Tamanho: 
+[15-Aug-2024 02:05:22 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 
+[15-Aug-2024 16:14:12 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 
+[15-Aug-2024 16:20:30 Europe/Berlin] Valores recebidos - EPI ID: 12, Operação: ITUPEVA, Tamanho: 
+[15-Aug-2024 16:44:31 Europe/Berlin] Valores recebidos - EPI ID: 2, Operação: ITUPEVA, Tamanho: 

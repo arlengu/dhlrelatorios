@@ -1,0 +1,71 @@
+[2024-07-20 07:37:24] Database connection failed: SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: NO)
+Database connection failed (PDO): SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: NO)Database connection failed: SQLSTATE[HY000] [1049] Unknown database 'dbsit'Database connection failed: SQLSTATE[HY000] [1049] Unknown database 'dbsit'[10-Aug-2024 02:02:57 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 24
+[10-Aug-2024 02:02:57 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 25
+[10-Aug-2024 02:02:57 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 26
+[10-Aug-2024 02:02:57 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 27
+[10-Aug-2024 02:02:57 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 28
+[10-Aug-2024 02:02:57 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function generateUniqueFileName() in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php:56
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 56
+[10-Aug-2024 02:03:30 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 24
+[10-Aug-2024 02:03:30 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 25
+[10-Aug-2024 02:03:30 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 26
+[10-Aug-2024 02:03:30 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 27
+[10-Aug-2024 02:03:30 Europe/Berlin] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 28
+[10-Aug-2024 02:03:30 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function generateUniqueFileName() in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php:56
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 56
+[10-Aug-2024 02:25:29 Europe/Berlin] Imagem EPI Path: ../../uploads/66b6b37978717_dhl-img-12.png
+[10-Aug-2024 02:25:29 Europe/Berlin] Insert Success: true
+[10-Aug-2024 02:28:22 Europe/Berlin] Imagem EPI Path: ../../uploads/66b6b426a96cd_luva.png
+[10-Aug-2024 02:28:22 Europe/Berlin] Insert Success: true
+[10-Aug-2024 02:30:04 Europe/Berlin] File Type: image/webp
+[10-Aug-2024 02:30:04 Europe/Berlin] File Extension: png
+[10-Aug-2024 02:30:11 Europe/Berlin] File Type: image/webp
+[10-Aug-2024 02:30:11 Europe/Berlin] File Extension: png
+[10-Aug-2024 02:30:15 Europe/Berlin] File Type: image/webp
+[10-Aug-2024 02:30:15 Europe/Berlin] File Extension: png
+[10-Aug-2024 02:31:50 Europe/Berlin] File Type: image/webp
+[10-Aug-2024 02:31:50 Europe/Berlin] File Extension: png
+[10-Aug-2024 02:33:18 Europe/Berlin] Imagem EPI Path: ../../uploads/66b6b54e130f1_bota.png
+[10-Aug-2024 02:33:18 Europe/Berlin] Insert Success: true
+[10-Aug-2024 03:17:31 Europe/Berlin] Imagem EPI Path: ../../uploads/66b6bfab05308_bota.png
+[10-Aug-2024 03:17:31 Europe/Berlin] Insert Success: true
+[10-Aug-2024 03:20:58 Europe/Berlin] Imagem EPI Path: ../../uploads/66b6c07a7b73d_oculos.png
+[10-Aug-2024 03:20:58 Europe/Berlin] Insert Success: true
+[10-Aug-2024 03:22:12 Europe/Berlin] Imagem EPI Path: ../../uploads/66b6c0c4923ab_capacete-abs-eletricista-sogima-epi-4.png
+[10-Aug-2024 03:22:12 Europe/Berlin] Insert Success: true
+[12-Aug-2024 23:09:42 Europe/Berlin] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 26
+[12-Aug-2024 23:13:15 Europe/Berlin] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 26
+[12-Aug-2024 23:14:09 Europe/Berlin] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 26
+[12-Aug-2024 23:15:07 Europe/Berlin] Imagem EPI Path: ../../uploads/66ba7b5b7083b_dhl-img-12.png
+[12-Aug-2024 23:15:07 Europe/Berlin] Exception: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'controledeepis.tamanho' doesn't exist
+[12-Aug-2024 23:18:02 Europe/Berlin] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 26
+[12-Aug-2024 23:18:47 Europe/Berlin] Imagem EPI Path: ../../uploads/66ba7c37bbd68_dhl-img-12.png
+[12-Aug-2024 23:18:47 Europe/Berlin] Insert Success: true
+[12-Aug-2024 23:20:32 Europe/Berlin] Imagem EPI Path: ../../uploads/66ba7ca0ad98a_dhl-img-12.png
+[12-Aug-2024 23:20:32 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: There is no active transaction in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php:146
+Stack trace:
+#0 C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php(146): PDO->rollBack()
+#1 {main}
+  thrown in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 146
+[12-Aug-2024 23:21:35 Europe/Berlin] Imagem EPI Path: ../../uploads/66ba7cdf2edac_dhl-img-12.png
+[12-Aug-2024 23:21:35 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '52789620' for key 'codigo' in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php:106
+Stack trace:
+#0 C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php(106): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 106
+[12-Aug-2024 23:22:03 Europe/Berlin] Imagem EPI Path: ../../uploads/66ba7cfba6893_dhl-img-12.png
+[12-Aug-2024 23:22:03 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'controledeepis.tamanhos' doesn't exist in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php:115
+Stack trace:
+#0 C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php(115): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\Telas\ScriptsCadastrarEPI\submit_product.php on line 115
+[13-Aug-2024 00:00:02 Europe/Berlin] Imagem EPI Path: ../../uploads/66ba85e2b1781_dhl-img-12.png
+[13-Aug-2024 00:00:02 Europe/Berlin] Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'nome' in 'field list'
+[13-Aug-2024 00:00:18 Europe/Berlin] Imagem EPI Path: ../../uploads/66ba85f2789d9_dhl-img-12.png
+[13-Aug-2024 00:00:18 Europe/Berlin] Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'nome' in 'field list'
+[13-Aug-2024 00:05:37 Europe/Berlin] Imagem EPI Path: ../../uploads/66ba8731b51be_dhl-img-12.png
+[13-Aug-2024 00:05:37 Europe/Berlin] Insert Success: true

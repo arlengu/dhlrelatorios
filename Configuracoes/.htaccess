@@ -1,0 +1,72 @@
+# Desativar listagem de diretórios
+Options -Indexes
+
+# Proteger arquivos sensíveis
+<FilesMatch "\.(env|config\.php|gitignore|htaccess|sql|json|xml|ini|log)$">
+    Require all denied
+</FilesMatch>
+
+# Bloquear acesso a todos os arquivos PHP, exceto index.php e login.php
+<FilesMatch "^(?!index\.php$|login\.php$).*\.php$">
+    Require all denied
+</FilesMatch>
+
+# Bloquear execução de scripts PHP em diretórios de upload (ajustar caminho conforme necessário)
+<Directory "/caminho/para/seu/diretorio/de/upload">
+    <FilesMatch "\.php$">
+        Require all denied
+    </FilesMatch>
+</Directory>
+
+# Proteger o arquivo de log de erros
+<Files "errors.log">
+    Require all denied
+</Files>
+
+# Habilitar o módulo de reescrita e configurar regras
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirecionar URLs não existentes para index.php (ajustar conforme necessário)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ login.php [L]
+</IfModule>
+
+# Configurações de segurança adicionais
+<IfModule mod_headers.c>
+    # Proteger contra XSS adicionando cabeçalhos
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Content-Type-Options "nosniff"
+    Header set Referrer-Policy "no-referrer"
+    Header set X-Frame-Options "DENY"
+
+    # Proteção contra Injeção de Script
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self'; object-src 'none';"
+</IfModule>
+
+# Limitar o acesso por IP, se necessário (exemplo)
+# <RequireAll>
+#     Require ip 123.456.789.000
+#     Require ip 111.222.333.444
+# </RequireAll>
+
+# Proteger arquivos de backup
+<FilesMatch "\.(bak|old|backup|swp|swo)$">
+    Require all denied
+</FilesMatch>
+
+# Proteção contra Hotlinking
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteCond %{HTTP_REFERER} !^$
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?presenteismo\.xyz/ [NC]
+    RewriteRule \.(jpg|jpeg|png|gif)$ - [F,NC]
+</IfModule>
+
+# Desabilitar Exposição da Versão do Apache
+ServerSignature Off
+ServerTokens Prod
+
+# Desativar Trace HTTP
+TraceEnable Off
