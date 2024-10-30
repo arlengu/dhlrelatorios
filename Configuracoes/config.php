@@ -15,4 +15,5 @@ return [
     'db_username' => $_ENV['DB_USERNAME'], // Nome de usuário do banco de dados
     'db_password' => $_ENV['DB_PASSWORD'], // Senha do banco de dados
     'db_name' => $_ENV['DB_NAME'],         // Nome do banco de dados
+    'ssl_ca' => $_ENV['SSL_CA'],           // Caminho para o certificado CA
 ];
