@@ -1,0 +1,33 @@
+{
+  "name": "Relórios In Out",
+  "short_name": "Relatórios",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "description": "Digitalização process engineer",
+  "display": "fullscreen",
+  "start_url": "https://dhlrelatorios.azurewebsites.net",
+  "scope": "https://dhlrelatorios.azurewebsites.net",
+  "dir": "auto",
+  "lang": "pt",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["business"],
+  "display_override": [
+    "browser",
+    "fullscreen",
+    "minimal-ui",
+    "standalone",
+    "window-controls-overlay"
+  ]
+}
