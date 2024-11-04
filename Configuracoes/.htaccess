@@ -13,10 +13,10 @@ Options -Indexes
 </FilesMatch>
 
 # Bloquear acesso ao arquivo .env
-<Files .env>
-    Order allow,deny
-    Deny from all
+<Files ".env">
+    Require all denied
 </Files>
+
 
 
 # Bloquear execução de scripts PHP em diretórios de upload (ajustar caminho conforme necessário)
