@@ -22,7 +22,9 @@
       "type": "image/png"
     }
   ],
-  "categories": ["business"],
+  "categories": [
+    "business"
+  ],
   "display_override": [
     "browser",
     "fullscreen",
