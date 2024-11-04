@@ -1,10 +1,10 @@
 <div class="header">
 
 <div class="header-left active">
-<a href="formulario.php" class="logo">
+<a href="inbound.php" class="logo">
 <img src="assets/img/logo.png" alt="">
 </a>
-<a href="formulario.php" class="logo-small">
+<a href="inbound.php" class="logo-small">
 <img src="assets/img/logo-small.png" alt="">
 </a>
 <a id="toggle_btn" href="javascript:void(0);">
