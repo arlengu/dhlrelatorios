@@ -12,18 +12,18 @@
         /* Estilos para o formato A4 */
         @media print {
             @page {
-                size: A4; /* Define o tamanho da página como A4 */
-                margin: 10mm; /* Define a margem da página */
+                size: A4;
+                margin: 10mm;
             }
             body {
                 margin: 0;
                 padding: 0;
-                width: 210mm; /* Largura para o formato A4 */
-                height: 297mm; /* Altura para o formato A4 */
+                width: 210mm;
+                height: 297mm;
                 box-sizing: border-box;
             }
             .buttons {
-                display: none !important; /* Garante que os botões sejam escondidos na impressão */
+                display: none !important;
             }
         }
 
@@ -98,64 +98,52 @@
 <h1>Comentários Relacionados à Conferência</h1>
 
 <?php
-// Conexão com o banco de dados
-$con = mysqli_init();
-$caCertPath = 'DigiCertGlobalRootCA.crt.pem';
-mysqli_ssl_set($con, NULL, NULL, $caCertPath, NULL, NULL);
+// Inclui o arquivo de conexão
+require 'Configuracoes/database.php'; // Este arquivo contém a conexão MySQLi configurada
 
-$host = 'arlendbteste.mysql.database.azure.com';
-$username = 'arlendbteste';
-$password = '3KT8zx203@Brasil';
-$database = 'tabela1';
+// Obtenha os dados enviados
+$placa = $_POST['placa'] ?? '';
+$invoice = $_POST['invoice'] ?? '';
 
-if (mysqli_real_connect($con, $host, $username, $password, $database, 3306, NULL, MYSQLI_CLIENT_SSL)) {
+// Consulta SQL para carregar os comentários baseados em placa e invoice
+$query = "SELECT sku, lpn, usuario, DATE_FORMAT(data_registro, '%d/%m/%Y %H:%i') as data_registro, comentario 
+          FROM comentarios 
+          WHERE placa = ? AND invoice = ? 
+          ORDER BY data_registro DESC";
 
-    // Obtenha os dados enviados
-    $placa = $_POST['placa'] ?? '';
-    $invoice = $_POST['invoice'] ?? '';
+// Prepara e executa a consulta
+$stmt = $conexao->prepare($query);
+$stmt->bind_param('ss', $placa, $invoice);
+$stmt->execute();
+$result = $stmt->get_result();
 
-    // Consulta SQL para carregar os comentários baseados em placa e invoice
-    $query = "SELECT sku, lpn, usuario, DATE_FORMAT(data_registro, '%d/%m/%Y %H:%i') as data_registro, comentario 
-              FROM comentarios 
-              WHERE placa = ? AND invoice = ? 
-              ORDER BY data_registro DESC";
+// Verifica se existem comentários
+if ($result->num_rows > 0) {
+    echo '<div class="a4-container">';
+    echo '<table>';
+    echo '<thead><tr><th>SKU</th><th>LPN</th><th>Usuário</th><th>Data do Registro</th><th>Comentário</th></tr></thead>';
+    echo '<tbody>';
 
-    // Prepara e executa a consulta
-    $stmt = $con->prepare($query);
-    $stmt->bind_param('ss', $placa, $invoice);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    // Verifica se existem comentários
-    if ($result->num_rows > 0) {
-        echo '<div class="a4-container">';
-        echo '<table>';
-        echo '<thead><tr><th>SKU</th><th>LPN</th><th>Usuário</th><th>Data do Registro</th><th>Comentário</th></tr></thead>';
-        echo '<tbody>';
-
-        // Exibe cada linha de resultado
-        while ($row = $result->fetch_assoc()) {
-            echo '<tr>';
-            echo '<td>' . htmlspecialchars($row['sku']) . '</td>';
-            echo '<td>' . htmlspecialchars($row['lpn']) . '</td>';
-            echo '<td>' . htmlspecialchars($row['usuario']) . '</td>';
-            echo '<td>' . htmlspecialchars($row['data_registro']) . '</td>';
-            echo '<td>' . htmlspecialchars($row['comentario']) . '</td>';
-            echo '</tr>';
-        }
-
-        echo '</tbody></table>';
-        echo '</div>'; // Fecha o container da página
-    } else {
-        echo '<p>Nenhum comentário encontrado para a placa e invoice especificados.</p>';
+    // Exibe cada linha de resultado
+    while ($row = $result->fetch_assoc()) {
+        echo '<tr>';
+        echo '<td>' . htmlspecialchars($row['sku']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['lpn']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['usuario']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['data_registro']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['comentario']) . '</td>';
+        echo '</tr>';
     }
+
+    echo '</tbody></table>';
+    echo '</div>'; // Fecha o container da página
 } else {
-    echo '<p>Erro na conexão: ' . mysqli_connect_error() . '</p>';
+    echo '<p>Nenhum comentário encontrado para a placa e invoice especificados.</p>';
 }
 
 // Fecha a conexão
-mysqli_close($con);
+mysqli_close($conexao);
 ?>
 
 </body>
-</html>  
+</html>

@@ -111,149 +111,136 @@
 </div>
 
 <?php
-// Conexão com o banco de dados
-$con = mysqli_init();
-$caCertPath = 'DigiCertGlobalRootCA.crt.pem';
-mysqli_ssl_set($con, NULL, NULL, $caCertPath, NULL, NULL);
+// Inclui o arquivo de conexão
+require 'Configuracoes/database.php'; // Este arquivo contém a conexão MySQLi configurada
 
-$host = 'arlendbteste.mysql.database.azure.com';
-$username = 'arlendbteste';
-$password = '3KT8zx203@Brasil';
-$database = 'tabela1';
+// Obtenha os dados enviados
+$invoice = $_POST['invoice'] ?? '';
 
-if (mysqli_real_connect($con, $host, $username, $password, $database, 3306, NULL, MYSQLI_CLIENT_SSL)) {
+// Consulta SQL
+$query = "SELECT lpn, sku, local, lote, quantidade, status_recebimento, 
+          DATE_FORMAT(data_vencimento, '%d/%m/%Y') as data_vencimento, quantidade_esperada_total, 
+          quantidade_identificada_total FROM relatorio WHERE invoice = ? ORDER BY sku";
 
-    // Obtenha os dados enviados
-    $placa = $_POST['placa'] ?? '';
-    $invoice = $_POST['invoice'] ?? '';
+// Prepara e executa a consulta
+$stmt = $conexao->prepare($query);
+$stmt->bind_param('s', $invoice);
+$stmt->execute();
+$result = $stmt->get_result();
 
-    // Consulta SQL
-    $query = "SELECT lpn, sku, local, lote, quantidade, status_recebimento, 
-              DATE_FORMAT(data_vencimento, '%d/%m/%Y') as data_vencimento, quantidade_esperada_total, 
-              quantidade_identificada_total FROM relatorio WHERE invoice = ? ORDER BY sku";
+if (mysqli_num_rows($result) > 0) {
+    $currentSKU = null;
+    $totalExpected = 0;
+    $totalReceived = 0;
+    $rows = [];
+    $pages = []; // Array para armazenar as páginas
 
-    // Prepara e executa a consulta
-    $stmt = $con->prepare($query);
-    $stmt->bind_param('s', $invoice);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    if (mysqli_num_rows($result) > 0) {
-        $currentSKU = null;
-        $totalExpected = 0;
-        $totalReceived = 0;
-        $rows = [];
-        $pages = []; // Array para armazenar as páginas
+    while ($row = mysqli_fetch_assoc($result)) {
+        $sku = $row['sku'];
 
-        while ($row = mysqli_fetch_assoc($result)) {
-            $sku = $row['sku'];
-
-            // Se mudamos de SKU, processamos a página anterior
-            if ($currentSKU && $currentSKU !== $sku) {
-                // Adiciona a página atual ao array de páginas
-                $pages[] = [
-                    'sku' => $currentSKU,
-                    'rows' => $rows,
-                    'total_expected' => $totalExpected,
-                    'total_received' => $totalReceived,
-                ];
-                
-                // Reset para o novo SKU
-                $rows = [];
-                $totalExpected = 0;
-                $totalReceived = 0;
-            }
-
-            // Atualiza o SKU atual e incrementa os totais
-            $currentSKU = $sku;
-            $totalExpected = $row['quantidade_esperada_total'];
-            $totalReceived = $row['quantidade_identificada_total'];
-
-            // Adiciona a linha de dados do item
-            $rows[] = $row;
-
-            // Verifica se já temos um número máximo de linhas por página
-            if (count($rows) >= 14) { // Limite de 15 linhas por página
-                // Adiciona a página atual ao array de páginas
-                $pages[] = [
-                    'sku' => $currentSKU,
-                    'rows' => $rows,
-                    'total_expected' => $totalExpected,
-                    'total_received' => $totalReceived,
-                ];
-
-                // Reseta as variáveis para a nova página
-                $rows = [];
-                $totalExpected = 0;
-                $totalReceived = 0;
-            }
-        }
-
-        // Renderiza a última página, se houver linhas restantes
-        if (!empty($rows)) {
+        // Se mudamos de SKU, processamos a página anterior
+        if ($currentSKU && $currentSKU !== $sku) {
+            // Adiciona a página atual ao array de páginas
             $pages[] = [
                 'sku' => $currentSKU,
                 'rows' => $rows,
                 'total_expected' => $totalExpected,
                 'total_received' => $totalReceived,
             ];
+            
+            // Reset para o novo SKU
+            $rows = [];
+            $totalExpected = 0;
+            $totalReceived = 0;
         }
 
-        // Renderiza todas as páginas
-        foreach ($pages as $index => $page) {
-            echo '<div class="a4-container">';
-            echo '<h1>Conferência de Recebimento - SKU: ' . htmlspecialchars($page['sku']) . '</h1>';
-            echo '<table>';
-            echo '<thead><tr><th>LPN</th><th>SKU</th><th>Local</th><th>Lote</th><th>Quantidade</th><th>Status</th><th>Data de Vencimento</th></tr></thead>';
-            echo '<tbody>';
+        // Atualiza o SKU atual e incrementa os totais
+        $currentSKU = $sku;
+        $totalExpected = $row['quantidade_esperada_total'];
+        $totalReceived = $row['quantidade_identificada_total'];
 
-            foreach ($page['rows'] as $row) {
-                echo '<tr>';
-                echo '<td>' . htmlspecialchars($row['lpn']) . '</td>';
-                echo '<td>' . htmlspecialchars($row['sku']) . '</td>';
-                echo '<td>' . htmlspecialchars($row['local']) . '</td>';
-                echo '<td>' . htmlspecialchars($row['lote']) . '</td>';
-                echo '<td>' . htmlspecialchars($row['quantidade']) . '</td>';
-                echo '<td>' . htmlspecialchars($row['status_recebimento']) . '</td>';
-                echo '<td>' . htmlspecialchars($row['data_vencimento']) . '</td>';
-                echo '</tr>';
-            }
+        // Adiciona a linha de dados do item
+        $rows[] = $row;
 
-            // Total para o SKU na última linha
-            echo '<tr class="total-row">';
-            echo '<td colspan="3">Total para o SKU: ' . htmlspecialchars($page['sku']) . '</td>';
-            echo '<td colspan="2">Total esperado: ' . $page['total_expected'] . '</td>';
-            echo '<td colspan="2">Total recebido: ' . $page['total_received'] . '</td>';
+        // Verifica se já temos um número máximo de linhas por página
+        if (count($rows) >= 14) { // Limite de 15 linhas por página
+            // Adiciona a página atual ao array de páginas
+            $pages[] = [
+                'sku' => $currentSKU,
+                'rows' => $rows,
+                'total_expected' => $totalExpected,
+                'total_received' => $totalReceived,
+            ];
+
+            // Reseta as variáveis para a nova página
+            $rows = [];
+            $totalExpected = 0;
+            $totalReceived = 0;
+        }
+    }
+
+    // Renderiza a última página, se houver linhas restantes
+    if (!empty($rows)) {
+        $pages[] = [
+            'sku' => $currentSKU,
+            'rows' => $rows,
+            'total_expected' => $totalExpected,
+            'total_received' => $totalReceived,
+        ];
+    }
+
+    // Renderiza todas as páginas
+    foreach ($pages as $index => $page) {
+        echo '<div class="a4-container">';
+        echo '<h1>Conferência de Recebimento - SKU: ' . htmlspecialchars($page['sku']) . '</h1>';
+        echo '<table>';
+        echo '<thead><tr><th>LPN</th><th>SKU</th><th>Local</th><th>Lote</th><th>Quantidade</th><th>Status</th><th>Data de Vencimento</th></tr></thead>';
+        echo '<tbody>';
+
+        foreach ($page['rows'] as $row) {
+            echo '<tr>';
+            echo '<td>' . htmlspecialchars($row['lpn']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['sku']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['local']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['lote']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['quantidade']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['status_recebimento']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['data_vencimento']) . '</td>';
             echo '</tr>';
-
-            echo '</tbody></table>';
-
-            // Verifica se a última página tem mais de 13 linhas
-            if ($index === count($pages) - 1 && count($page['rows']) > 13) {
-                // Se tiver, adiciona uma nova página para a assinatura
-                echo '</div>'; // Fecha o container da página
-                echo '<div class="a4-container">'; // Nova página para a assinatura
-                echo '<h1>Assinaturas</h1>'; // Título opcional
-            }
-
-            // Assinatura somente na última página
-            if ($index === count($pages) - 1) {
-                echo '<div class="signature">';
-                echo '<div><div style="font-weight: bold;">Nome do conferente:</div> João Pedro da Silva</div>';
-                echo '<div><div style="font-weight: bold;">Data da confêrencia:</div> 10/10/2024 ás 14:35</div>';
-                echo '</div>';
-            }
-
-            echo '</div>'; // Fecha o container
         }
-    } else {
-        echo '<p>Nenhum dado encontrado na tabela relatorio.</p>';
+
+        // Total para o SKU na última linha
+        echo '<tr class="total-row">';
+        echo '<td colspan="3">Total para o SKU: ' . htmlspecialchars($page['sku']) . '</td>';
+        echo '<td colspan="2">Total esperado: ' . $page['total_expected'] . '</td>';
+        echo '<td colspan="2">Total recebido: ' . $page['total_received'] . '</td>';
+        echo '</tr>';
+
+        echo '</tbody></table>';
+
+        // Verifica se a última página tem mais de 13 linhas
+        if ($index === count($pages) - 1 && count($page['rows']) > 13) {
+            // Se tiver, adiciona uma nova página para a assinatura
+            echo '</div>'; // Fecha o container da página
+            echo '<div class="a4-container">'; // Nova página para a assinatura
+            echo '<h1>Assinaturas</h1>'; // Título opcional
+        }
+
+        // Assinatura somente na última página
+        if ($index === count($pages) - 1) {
+            echo '<div class="signature">';
+            echo '<div><div style="font-weight: bold;">Nome do conferente:</div> João Pedro da Silva</div>';
+            echo '<div><div style="font-weight: bold;">Data da conferência:</div> 10/10/2024 às 14:35</div>';
+            echo '</div>';
+        }
+
+        echo '</div>'; // Fecha o container
     }
 } else {
-    echo '<p>Erro na conexão: ' . mysqli_connect_error() . '</p>';
+    echo '<p>Nenhum dado encontrado na tabela relatorio.</p>';
 }
 
-mysqli_close($con);
+mysqli_close($conexao);
 ?>
 
 </body>

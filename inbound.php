@@ -218,14 +218,14 @@ function escape_html($string) {
                                 </div>
                             </div>
 
-                            <div class="col-lg-4 col-sm-4 col-12">
+                            <div class="col-lg-4 col-sm-4 col-12" style="Display: none;">
                                 <div class="form-group">
                                     <label for="codigoEpi"> Quantidade esperada</label>
                                     <input type="text" id="EXPQTY_tt" name="EXPQTY_tt" class="form-control" readonly>
                                 </div>
                             </div>
 
-                            <div class="col-lg-4 col-sm-4 col-12">
+                            <div class="col-lg-4 col-sm-4 col-12" style="Display: none;">
                                 <div class="form-group">
                                     <label for="codigoEpi"> Quantidade recebida</label>
                                     <input type="text" id="IDNQTY_tt" name="IDNQTY_tt" class="form-control" readonly>
@@ -895,7 +895,7 @@ $(document).ready(function() {
             document.getElementById('trlr_seal2').value = (item.TRLR_SEAL2 === 'NA' ? 'N/A' : item.TRLR_SEAL2) || 'N/A';
             document.getElementById('trlr_seal3').value = (item.TRLR_SEAL3 === 'NA' ? 'N/A' : item.TRLR_SEAL3) || 'N/A';
             document.getElementById('EXPQTY_tt').value = (item.EXPQTY_TT === 'NA' ? 'N/A' : item.EXPQTY_TT  ) || 'N/A';
-            document.getElementById('IDNQTY_tt').value = (item.IDNQTY_TT === 'NA' ? 'N/A' : item.IDNQTY_TT  ) || 'N/A';
+            document.getElementById('IDNQTY_tt').value = (item.IDNQTY_TT === 'NA' ? 'N/A' : item.IDNQTY_TT + 1  ) || 'N/A';
 
             // Agora buscar na tabela relatorio1
             const placa = item.TRLR_NUM; // Supondo que SKU está disponível no item
