@@ -51,7 +51,7 @@ function renderHead($pageTitle = "Admin Dashboard") {
 
     <link rel="stylesheet" href="../assets/css/style.css">
 
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="../manifest.json">
 
 
 
