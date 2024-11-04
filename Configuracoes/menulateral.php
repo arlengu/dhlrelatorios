@@ -8,9 +8,8 @@
 <li class="submenu">
 <a href="javascript:void(0);"><i class="fa-solid fa-truck-ramp-box"></i></i><span> Inbound</span> <span class="menu-arrow"></span></a>
 <ul>
-<li><a href="chekin.php">Realizar Chekin</a></li>
-<li><a href="#">Cadastrar epi</a></li>
-<li><a href="#">Consultar recebimento</a></li>
+<li><a href="inbound.php"> Realizar Chekin</a></li>
+<li><a href="consulta.php"> Consultar</a></li>
 </div>
 </div>
 </div>
