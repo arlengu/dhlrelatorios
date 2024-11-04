@@ -3,7 +3,15 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$url = 'https://score-msc.mysupplychain.dhl.com/score_msc/external/V1/report/160590/run/sync?Content-Type=application%2Fjson&Accept=text%2Fcsv';
+// Inclui o autoloader do Composer e o arquivo de configuração
+require 'vendor/autoload.php';
+$config = require 'Configuracoes/config.php';
+
+// Acessa as configurações do banco de dados
+$password = $config['api_password'];
+$user = $config['api_user'];
+
+$url = $config['api_url'];
 
 // Verifica se o número da nota foi enviado via POST
 if (!isset($_POST['invnum'])) {
@@ -69,8 +77,6 @@ $data = array(
     'body' => ['']
 );
 
-$user = 'arbarret';
-$password = '3KT8zx203@Brasil1';
 $credenciais = $user . ':' . $password;
 $credenciaisBase64 = base64_encode($credenciais);
 
