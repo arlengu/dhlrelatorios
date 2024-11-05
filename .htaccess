@@ -4,6 +4,13 @@
     Deny from all
 </Files>
 
+# Bloquear o acesso a todos os arquivos dentro da pasta Configuracoes
+<Directory "/path/to/your/site/Configuracoes">
+    Order Deny,Allow
+    Deny from all
+</Directory>
+
+
 # Desabilitar o acesso a arquivos de configuração
 <FilesMatch "(^\.|wp-config\.php)">
     Order Deny,Allow
