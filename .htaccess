@@ -1,1 +1,99 @@
+# Bloquear o acesso ao .htaccess
+<Files .htaccess>
+    Order Allow,Deny
+    Deny from all
+</Files>
 
+# Desabilitar o acesso a arquivos de configuração
+<FilesMatch "(^\.|wp-config\.php)">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Prevenir execução de scripts em diretórios específicos
+# (como diretórios de upload)
+<Directory "/path/to/uploads">
+    <FilesMatch "\.(php|php5|phtml|exe)$">
+        Order Deny,Allow
+        Deny from all
+    </FilesMatch>
+</Directory>
+
+# Impedir a execução de arquivos PHP em diretórios de uploads
+<Directory "/path/to/your/uploads/folder">
+    php_flag engine off
+</Directory>
+
+# Forçar uso de HTTPS para todas as conexões
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Definir cabeçalhos de segurança (X-Content-Type-Options, X-Frame-Options, etc.)
+Header set X-Content-Type-Options "nosniff"
+Header set X-XSS-Protection "1; mode=block"
+Header set X-Frame-Options "SAMEORIGIN"
+Header set Strict-Transport-Security "max-age=31536000; includeSubDomains" # HSTS
+
+# Evitar que os navegadores façam cache de arquivos sensíveis
+<FilesMatch "\.(htaccess|htpasswd|ini|log|conf|env|json)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Prevenir injeção de código via cabeçalhos HTTP (XSS, SQL Injection, etc.)
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self'; object-src 'none'; style-src 'self';"
+</IfModule>
+
+# Bloquear User-Agents conhecidos por ataques de bots maliciosos
+SetEnvIf User-Agent "Bot|Scanner|curl|wget|libwww|HTTrack" BlockBadBots
+Order Allow,Deny
+Allow from all
+Deny from env=BlockBadBots
+
+# Definir limite de requisições por IP para proteger contra DDoS
+<IfModule mod_ratelimit.c>
+    SetEnvIf Request_URI ".*" burst=5 nodelay
+    SetEnvIf Request_URI ".*" rate=2
+</IfModule>
+
+# Bloquear requisições de IPs ou regiões suspeitas (exemplo para bloquear por IP)
+<RequireAll>
+    Require all granted
+    Require not ip 192.168.0.1
+    Require not ip 123.456.789.000
+</RequireAll>
+
+# Bloquear acesso a arquivos .env
+<Files .env>
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+# Impedir hotlinking de imagens
+RewriteEngine On
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?seusite\.com/ [NC]
+RewriteRule \.(jpg|jpeg|png|gif)$ - [F,NC]
+
+# Desabilitar a listagem de diretórios
+Options -Indexes
+
+# Proteger contra ataques de falsificação de solicitação entre sites (CSRF)
+Header set X-Frame-Options "SAMEORIGIN"
+
+# Desabilitar a execução de scripts em diretórios de upload
+<Directory "/path/to/your/uploads">
+    <FilesMatch "\.(php|php5|phtml|exe)$">
+        Order Deny,Allow
+        Deny from all
+    </FilesMatch>
+</Directory>
+
+# Redirecionar requisições de URLs de fontes desconhecidas ou maliciosas
+RewriteCond %{HTTP_REFERER} ^https?://(.*\.xyz|.*\.ru|.*\.cn) [NC]
+RewriteRule .* - [F]
