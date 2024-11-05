@@ -107,6 +107,17 @@ Header set X-Frame-Options "SAMEORIGIN"
     Deny from all
 </FilesMatch>
 
+<Directory "/home/site/wwwroot/Configuracoes">
+    Order Deny,Allow
+    Deny from all
+</Directory>
+
+location ~ ^/Configuracoes/ {
+    deny all;
+    return 404;
+}
+
+
 
 # Redirecionar requisições de URLs de fontes desconhecidas ou maliciosas
 RewriteCond %{HTTP_REFERER} ^https?://(.*\.xyz|.*\.ru|.*\.cn) [NC]
