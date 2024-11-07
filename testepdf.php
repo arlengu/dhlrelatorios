@@ -8,100 +8,214 @@
         include 'Configuracoes/headgerais.php';
         renderHead("Check-list de veículo");
     ?>
-    <style>
-        @media print {
-            @page {
-                size: A4 landscape;
-                margin: 0;
-            }
-            body {
-                margin: 0;
-                padding: 0;
-                width: 297mm;
-                height: 210mm;
-                box-sizing: border-box;
-            }
+<style>
+    @media print {
+        @page {
+            size: A4 landscape;
+            margin: 0;
         }
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
-            background: #f2f2f2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative; /* Para posicionar os botões */
-        }
-        .a4-container {
+            padding: 0;
             width: 297mm;
             height: 210mm;
-            background: white;
-            padding: 20px;
-            margin-bottom: 10px;
             box-sizing: border-box;
-            page-break-after: always;
-            position: relative;
         }
+
+        .btn {
+            display: none; /* Esconde os botões na impressão */
+        }
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f2f2f2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative; /* Para posicionar os botões */
+    }
+
+    .a4-container {
+        width: 297mm;
+        height: 210mm;
+        background: white;
+        padding: 20px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        page-break-after: always;
+        position: relative;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #333;
+        padding: 10px;
+        text-align: center;
+        width: 14%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .signature {
+        margin-top: 40px; /* Espaço abaixo da tabela */
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .signature div {
+        text-align: center;
+    }
+
+    .line {
+        border-top: 1px solid #000;
+        margin-top: 5px;
+        width: 200px;
+    }
+
+    .total-row {
+        background-color: #f2f0f0;
+        font-weight: bold;
+    }
+
+    .buttons {
+        position: fixed; /* Usar fixed para que fiquem flutuantes em relação à janela */
+        left: 20px; /* Posição à esquerda */
+        top: 20px; /* Distância do topo */
+        display: flex;
+        flex-direction: column;
+        z-index: 1000; /* Valor alto para garantir que os botões fiquem acima de outros elementos */
+    }
+
+    .button {
+        margin-bottom: 10px;
+        padding: 10px 15px;
+        background-color: #007BFF; /* Cor do botão */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .button:hover {
+        background-color: #0056b3; /* Cor ao passar o mouse */
+    }
+
+    /* Responsividade para tablets grandes e telas de desktop */
+    @media (min-width: 992px) {
+        .a4-container {
+            padding: 30px; /* Maior espaçamento para telas grandes */
+        }
+
         h1 {
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 30px;
         }
+
         table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+            font-size: 16px;
         }
+
         th, td {
-            border: 1px solid #333;
+            padding: 12px;
+        }
+    }
+
+    /* Responsividade para dispositivos móveis e tablets pequenos */
+    @media (max-width: 992px) {
+        .a4-container {
+            width: 100%;
+            max-width: none; /* Remove a restrição do tamanho A4 */
             padding: 10px;
-            text-align: center;
-            width: 14%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
         }
-        th {
-            background-color: #f2f2f2;
+
+        h1 {
+            font-size: 24px;
         }
+
+        table {
+            font-size: 12px;
+            overflow-x: auto;
+            display: block; /* Permite rolagem horizontal */
+        }
+
+        th, td {
+            padding: 8px;
+        }
+
         .signature {
-            margin-top: 40px; /* Espaço abaixo da tabela */
-            display: flex;
-            justify-content: space-between;
-        }
-        .signature div {
-            text-align: center;
-        }
-        .line {
-            border-top: 1px solid #000;
-            margin-top: 5px;
-            width: 200px;
-        }
-        .total-row {
-            background-color: #f2f0f0;
-            font-weight: bold;
-        }
-        .buttons {
-            position: absolute;
-            left: 20px; /* Posição à esquerda */
-            top: 20px; /* Distância do topo */
-            display: flex;
             flex-direction: column;
+            align-items: flex-start;
         }
+
+        .buttons {
+            left: 10px; /* Manter a posição relativa */
+            top: 10px;
+        }
+
         .button {
+            margin-bottom: 5px;
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+    }
+
+    /* Responsividade para dispositivos móveis pequenos */
+    @media (max-width: 480px) {
+        .a4-container {
+            width: 100%;
+            padding: 10px;
+        }
+
+        h1 {
+            font-size: 20px;
             margin-bottom: 10px;
-            padding: 10px 15px;
-            background-color: #007BFF; /* Cor do botão */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: center;
         }
-        .button:hover {
-            background-color: #0056b3; /* Cor ao passar o mouse */
+
+        table {
+            font-size: 10px;
         }
-    </style>
+
+        th, td {
+            padding: 5px;
+            font-size: 9px;
+        }
+
+        .signature div {
+            font-size: 10px;
+        }
+
+        .buttons {
+            left: 5px; /* Manter a posição relativa */
+            top: 5px;
+        }
+
+        .button {
+            margin-bottom: 5px;
+            padding: 5px 8px;
+            font-size: 12px;
+        }
+    }
+</style>
+
 </head>
 <body>
 
@@ -163,7 +277,7 @@ if (mysqli_num_rows($result) > 0) {
         $rows[] = $row;
 
         // Verifica se já temos um número máximo de linhas por página
-        if (count($rows) >= 14) { // Limite de 15 linhas por página
+        if (count($rows) >= 12) { // Limite de 15 linhas por página
             // Adiciona a página atual ao array de páginas
             $pages[] = [
                 'sku' => $currentSKU,

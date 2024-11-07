@@ -161,19 +161,11 @@ function escape_html($string) {
                         <table class="table" id="userTable">
                             <thead>
                                 <tr>
-                                    <th>
-                                    <label class="checkboxs">
-                                    <input type="checkbox">
-                                    <span class="checkmarks"></span>
-                                    </label>
-                                    </th>
                                     <th>Placa</th>
-                                    <th>Invoice</th>
                                     <th>Doca</th>
                                     <th>Transportadora</th>
                                     <th>Status</th>
                                     <th>Comentarios</th>
-                                    <th>Ação</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -199,6 +191,21 @@ function escape_html($string) {
 
 <!-- Adicionar o estilo CSS -->
 <style>
+.bg-success-light {
+    background-color: #66b383; /* Verde mais escuro */
+}
+.bg-info-light {
+    background-color: #5fa9b2; /* Azul claro mais escuro */
+}
+.bg-warning-light {
+    background-color: #ffc84d; /* Amarelo mais escuro */
+}
+.bg-secondary-light {
+    background-color: #9aa0a4; /* Cinza mais escuro */
+}
+.bg-primary-light {
+    background-color: #6a9fda; /* Azul mais escuro */
+}
     .modal-content {
         background: #fff;
     }
@@ -307,60 +314,61 @@ function escape_html($string) {
                 // Ignora a primeira linha (cabeçalho)
                 if (index === 0) return;
 
-                const placa = row[1]; // Placa
-                const invoice = row[0]; // Invoice
-                const doca = row[9]; // Doca
-                const transportadora = row[6]; // Transportadora
-                const status = row[2]; // Status
-                const comentarios = row[8]; // Comentários
+                const placa = row[0]; // Placa
+                const doca = row[8]; // Doca
+                const transportadora = row[2]; // Transportadora
+                const status = row[1]; // Status
+                const comentarios = row[7]; // Comentários
 
                 // Define a classe para o status
                 let statusClass = '';
                 let statusText = status; // Texto do status
 
                 switch (status) {
-                    case 'Receiving':
-                        statusClass = 'bg-lightgreen'; // Verde
-                        break;
-                    case 'Checked In':
-                        statusClass = 'bg-warning'; // Amarelo
-                        break;
-                    case 'Open For Receiving':
-                        statusClass = 'bg-lightred'; // Vermelho
-                        break;
-                    default:
-                        statusClass = ''; // Para outros casos, se necessário
-                        break;
-                }
+    case 'Receiving':
+        statusClass = 'bg-success-light'; // Verde claro para indicar status ativo/positivos
+        break;
+    case 'Checked In':
+        statusClass = 'bg-info-light'; // Azul bem claro para algo intermediário
+        break;
+    case 'Open For Receiving':
+        statusClass = 'bg-warning-light'; // Amarelo claro para indicar atenção/pendente
+        break;
+    case 'Closed':
+        statusClass = 'bg-secondary-light'; // Cinza claro para indicar finalizado/inativo
+        break;
+    case 'Expected':
+        statusClass = 'bg-primary-light'; // Azul mais claro para indicar status previsto/futuro
+        break;
+    default:
+        statusClass = 'bg-light'; // Cor neutra para casos não especificados
+        break;
+}
+
 
                 // Adicionar linha do item
                 tbody.append(`
                     <tr>
-                        <td>
-                            <label class="checkboxs">
-                                <input type="checkbox">
-                                <span class="checkmarks"></span>
-                            </label>
-                        </td>
                         <td>${placa}</td>
-                        <td>${invoice}</td>
                         <td>${doca}</td>
                         <td>${transportadora}</td>
                         <td><span class="${statusClass} badges">${statusText}</span></td> <!-- Adiciona o status formatado -->
                         <td>${comentarios}</td>
-                        <td>
-                            <button class="btn btn-primary" onclick="handleButtonClick('${invoice}')">
-                                <i class="fa-solid fa-file-lines"></i> <!-- Ícone do Font Awesome -->
-                            </button>
-                        </td>
                     </tr>
                 `);
             });
+            /*
+            <td>
+                            <button class="btn btn-primary" onclick="handleButtonClick('${invoice}')">
+                                <i class="fa-solid fa-file-lines"></i> <!-- Ícone do Font Awesome -->
+                            </button>
+                        </td>*/
 
             inicializarDataTable(); // Inicializa o DataTable após preencher os dados
         })
         .catch(error => {
             console.error("Erro ao carregar os dados: " + error);
+            $('#global-loader').hide();
         })
         .finally(() => {
             $('#global-loader').hide();

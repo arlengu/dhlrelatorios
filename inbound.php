@@ -14,6 +14,33 @@ function escape_html($string) {
         include 'Configuracoes/headgerais.php';
         renderHead("Check-list de veículo");
     ?>
+    <style>
+    /* Estilos do botão flutuante */
+    .floatingAddCommentBtn {
+      position: fixed;
+      bottom: 20px; /* Distância do fundo da página */
+      right: 20px;   /* Distância da lateral direita (mudança aqui) */
+      background-color: #007bff; /* Cor de fundo */
+      color: white; /* Cor do ícone */
+      border: none;
+      border-radius: 50%;
+      width: 60px; /* Tamanho do botão */
+      height: 60px; /* Tamanho do botão */
+      display: none;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px; /* Tamanho do ícone */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+      cursor: pointer;
+      z-index: 1000; /* Garantir que o botão fique acima de outros elementos */
+      transition: background-color 0.3s ease; /* Transição suave para mudar cor */
+    }
+
+    /* Efeito quando o botão é hover */
+    .floatingAddCommentBtn:hover {
+      background-color: #0056b3; /* Cor do botão ao passar o mouse */
+    }
+  </style>
 
     <style>
         .pagination {
@@ -215,6 +242,13 @@ function escape_html($string) {
                                 <div class="form-group">
                                     <label for="codigoEpi"> Lacre 3</label>
                                     <input type="text" id="trlr_seal3" name="trlr_seal3" class="form-control" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-sm-4 col-12">
+                                <div class="form-group">
+                                    <label for="codigoEpi"> Status</label>
+                                    <input type="text" id="trlr_stat" name="trlr_stat" class="form-control" readonly>
                                 </div>
                             </div>
 
@@ -517,6 +551,71 @@ function escape_html($string) {
 </div>
 
 
+<!-- Modal para Adicionar Comentário (novos IDs) -->
+<div class="modal fade" id="modalAddComment" tabindex="-1" aria-labelledby="modalAddCommentLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-lg">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title" id="modalAddCommentLabel">Adicionar Comentário</h5>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body p-4">
+        <form id="formAddComment">
+          <input type="hidden" id="inputSku" name="inputSku">
+
+          <!-- Campo SKU -->
+          <div class="form-group mb-3">
+            <label for="inputSkuField" class="text-start">SKU</label>
+            <input type="text" class="form-control" id="inputSkuField" name="inputSkuField">
+          </div>
+
+          <!-- Campo Placa -->
+          <div class="form-group mb-3">
+            <label for="inputPlacaField" class="text-start">Placa do Veículo</label>
+            <input type="text" class="form-control" id="inputPlacaField" name="inputPlacaField" readonly>
+          </div>
+
+          <!-- Campo Invoice -->
+          <div class="form-group mb-3">
+            <label for="inputInvoiceField" class="text-start">Invoice</label>
+            <input type="text" class="form-control" id="inputInvoiceField" name="inputInvoiceField" readonly>
+          </div>
+
+          <!-- Campo de Seleção (Falta ou Sobra) -->
+          <div class="form-group mb-3">
+            <label for="inputStatusField" class="text-start">Tipo de divergência</label>
+            <select class="form-select" id="inputStatusField" name="inputStatusField" required>
+              <option value="">Selecione...</option>
+              <option value="Falta">Falta</option>
+              <option value="Sobra">Sobra</option>
+            </select>
+          </div>
+
+          <!-- Campo de Descrição -->
+          <div class="form-group mb-3">
+            <label for="textareaComment" class="text-start">Comentário</label>
+            <textarea id="textareaComment" class="form-control" rows="4" placeholder="Digite seu comentário aqui..." required></textarea>
+          </div>
+
+          <div class="form-group d-flex justify-content-end mt-4">
+            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="btnSaveComment">Salvar Comentário</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Botão flutuante com ícone de comentário -->
+<button class="floatingAddCommentBtn btn btn-primary ">
+    <i class="fas fa-comment"></i>
+  </button>
+
+
 
 
 
@@ -603,8 +702,8 @@ $(document).ready(function() {
         });
     }
 
-    // Função para carregar dados na tabela
-    function loadData(invnum) {
+// Função para carregar dados na tabela
+function loadData(invnum) {
     fetch('teste.php', {
         method: 'POST',
         headers: {
@@ -630,9 +729,19 @@ $(document).ready(function() {
 
         // Verifica se há dados
         if (data.length === 0) {
-            Swal.fire("Alerta", "Não há relatório para esta busca.", "warning");
+            $('.floatingAddCommentBtn').css('display', 'none');
+            // Se não houver dados, exibe a mensagem de sucesso informando que não há relatório
+            //Swal.fire("Erro", "Não temos um relatório de recebimento para essa placa!", "error");
             return;
         }
+
+        /*
+        // Caso contrário, se os dados forem encontrados, mostramos uma mensagem de sucesso
+        Swal.fire("Sucesso", "Relatório carregado com sucesso!", "success");
+
+        // Exibe o botão flutuante
+        $('.floatingAddCommentBtn').css('display', 'flex');
+        */
 
         $.each(data, function(index, row) {
             if (index === 0) return; // Ignora a primeira linha (cabeçalho)
@@ -748,6 +857,7 @@ $(document).ready(function() {
     });
 }
 
+
 // Evento para abrir o modal de adicionar comentário
 $(document).on('click', '.add-comment', function() {
     const sku = $(this).data('sku');
@@ -826,6 +936,14 @@ $(document).ready(function() {
     window.pesquisar = function() {
     event.preventDefault(); // Impede o envio do formulário
 
+    // Tornar as divs invisíveis (removendo a classe 'detalhes' e 'auditoria' que controlam a visibilidade)
+    document.querySelector('.detalhes').style.display = 'none';
+    document.querySelector('.auditoria1').style.display = 'none';
+    document.querySelector('.auditoria2').style.display = 'none';
+    document.querySelector('.tabela').style.display = 'none';
+    $('.floatingAddCommentBtn').css('display', 'none');
+    
+
     // Limpa os inputs antes de realizar a consulta
     const inputs = [
         'trlr_num', 
@@ -882,6 +1000,10 @@ $(document).ready(function() {
         } else if (data.length > 0) {
             // Preenche os inputs com os dados retornados
             const item = data[0];
+            /*if (item.TRLR_STAT === 'Dispatched') {
+            Swal.fire("Erro", "O veículo já foi despachado", "error")
+        };
+            return;*/
             document.getElementById('trlr_num').value = (item.TRLR_NUM === 'NA' ? 'N/A' : item.TRLR_NUM) || 'N/A';
             document.getElementById('invoice').value = (item.INVNUM === 'NA' ? 'N/A' : item.INVNUM) || 'N/A';
             document.getElementById('trlr_broker').value = (item.TRLR_BROKER === 'NA' ? 'N/A' : item.TRLR_BROKER) || 'N/A';
@@ -895,13 +1017,13 @@ $(document).ready(function() {
             document.getElementById('trlr_seal2').value = (item.TRLR_SEAL2 === 'NA' ? 'N/A' : item.TRLR_SEAL2) || 'N/A';
             document.getElementById('trlr_seal3').value = (item.TRLR_SEAL3 === 'NA' ? 'N/A' : item.TRLR_SEAL3) || 'N/A';
             document.getElementById('EXPQTY_tt').value = (item.EXPQTY_TT === 'NA' ? 'N/A' : item.EXPQTY_TT  ) || 'N/A';
-            document.getElementById('IDNQTY_tt').value = (item.IDNQTY_TT === 'NA' ? 'N/A' : item.IDNQTY_TT + 1  ) || 'N/A';
+            document.getElementById('IDNQTY_tt').value = (item.IDNQTY_TT === 'NA' ? 'N/A' : item.IDNQTY_TT  ) || 'N/A';
+            document.getElementById('trlr_stat').value = (item.TRLR_STAT === 'NA' ? 'N/A' : item.TRLR_STAT) || 'N/A';
 
             // Agora buscar na tabela relatorio1
             const placa = item.TRLR_NUM; // Supondo que SKU está disponível no item
+            const invnum = item.INVNUM;
             buscarRelatorio1(placa, invnum);
-            buscarRelatorio2(placa, invnum);
-            loadData(invnum)
             $('.auditoria1').show();
             $('.detalhes').show(); 
 
@@ -950,6 +1072,12 @@ function buscarRelatorio1(placa, invoice) {
 
             // Desabilitar o botão de salvar do formulário de auditoria
             document.querySelector('#auditoriaForm .btn.btn-secondary').disabled = false;
+
+            const placaVeiculo = $('#trlr_num').val();  // Pega a Placa do veículo
+            const invoice = $('#invoice').val();  // Pega o Invoice
+
+            buscarRelatorio2(placaVeiculo, invoice);
+            loadData(invoice);
 
             /*
             // Mostrar a seção com a classe .auditoria2
@@ -1239,6 +1367,7 @@ document.querySelector('#auditoriaForm .btn.btn-secondary').addEventListener('cl
     // Mostrar os dados
     $('.auditoria2').show();
     $('.tabela').show();
+    $('.floatingAddCommentBtn').css('display', 'flex');
 });
 
 
@@ -1246,3 +1375,72 @@ document.querySelector('#auditoriaForm .btn.btn-secondary').addEventListener('cl
 
 
 </script>
+
+<script>
+$(document).ready(function() {
+    // Inicializa o plugin Select2 no elemento <select> com id 'TipoTamanho'
+    $('#inputStatusField').select2({
+        placeholder: "Selecione o tipo", // Texto exibido quando nada está selecionado
+        allowClear: true // Permite limpar a seleção
+    });
+});
+</script>
+
+<!-- JS para abrir o modal -->
+<script>
+$(document).on('click', '.floatingAddCommentBtn', function() {
+    // Pega os valores do SKU, Placa e Invoice dos campos do formulário
+    const placaVeiculo = $('#trlr_num').val();  // Pega a Placa do veículo
+    const invoice = $('#invoice').val();  // Pega o Invoice
+
+    // Limpar campos do modal
+    $('#textareaComment').val(''); // Limpar o campo de texto do comentário
+    $('#inputSkuField').val(''); // Limpar o campo de texto do SKU
+    $('#inputStatusField').val(''); // Limpar o campo de seleção de status
+    $('#inputPlacaField').val(placaVeiculo); // Preencher a Placa
+    $('#inputInvoiceField').val(invoice); // Preencher o Invoice
+
+    // Armazenar dados no modal e exibir
+    $('#modalAddComment').data('placa', placaVeiculo)
+                         .data('invoice', invoice)
+                         .modal('show'); // Mostrar o modal
+});
+
+// Enviar o comentário para o PHP via AJAX
+$(document).on('click', '#btnSaveComment', function() {
+    // Obter os valores dos campos do modal
+    const sku = $('#inputSkuField').val();  // SKU
+    const placa = $('#inputPlacaField').val();  // Placa
+    const invoice = $('#inputInvoiceField').val();  // Invoice
+    const comentario = $('#textareaComment').val();  // Comentário
+    const status = $('#inputStatusField').val();  // Status selecionado (Falta ou Sobra)
+
+    // Enviar dados para o PHP via AJAX
+    $.ajax({
+        url: 'save_comment_geral.php', // Altere para o caminho correto do seu script PHP
+        type: 'POST',
+        data: {
+            sku: sku,
+            placa: placa,
+            invoice: invoice,
+            comment: comentario,
+            status: status // Enviar o status também
+        },
+        success: function(response) {
+            const data = JSON.parse(response);
+            if (data.success) {
+                // Sucesso ao enviar comentário
+                alert('Comentário enviado com sucesso!');
+                $('#modalAddComment').modal('hide'); // Fecha o modal
+            } else {
+                // Erro ao enviar comentário
+                alert('Erro ao enviar comentário: ' + data.error);
+            }
+        },
+        error: function() {
+            alert('Ocorreu um erro na requisição!');
+        }
+    });
+});
+</script>
+

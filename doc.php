@@ -127,16 +127,16 @@
         <div class="container">
             <div class="left">
                 <p style="font-size: 12px;"><strong>Data e hora da impressão:</strong> <?= date('d/m/Y H:i'); ?> <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Check-in:</strong> <?= date('d/m/Y H:i'); ?></p>
-                <p style="font-size: 12px; padding-top: 20px;"><strong>Placa da carreta:</strong> <?= htmlspecialchars($_POST['comentario'] ?? 'N/A'); ?></p>
+                <p style="font-size: 12px; padding-top: 20px;"><strong>Placa da carreta:</strong> <?= htmlspecialchars($_POST['placa'] ?? 'N/A'); ?></p>
                 <p style="font-size: 12px;"><strong>Invoiced:</strong> <?= htmlspecialchars($_POST['invoice'] ?? 'N/A'); ?></p>
                 <p style="font-size: 12px; padding-top: 20px;"><strong>Load:</strong> N/A</p>
                 <p style="font-size: 12px;"><strong>Shipment(s):</strong> N/A</p>
-                <p style="font-size: 12px; padding-top: 20px;"><strong>Local do veículo:</strong> FRONTMANU</p>
-                <p style="font-size: 12px;"><strong>Nome da transportadora:</strong> LOTUS</p>
+                <p style="font-size: 12px; padding-top: 20px;"><strong>Local do veículo:</strong> <?= htmlspecialchars($_POST['doca'] ?? 'N/A'); ?></p>
+                <p style="font-size: 12px;"><strong>Nome da transportadora:</strong> <?= htmlspecialchars($_POST['transportadora'] ?? 'N/A'); ?></p>
                 <p style="font-size: 12px;"><strong>Tipo veículo:</strong> CARRETA BAU</p>
                 <p style="font-size: 12px;"><strong>Nome do motorista:</strong> FABIO FERNANDO DA SILVA</p>
                 <p style="font-size: 12px;"><strong>CNH:</strong> 99999999999</p>
-                <p style="font-size: 12px;"><strong>Telefone:</strong> (11) 9 99999999</p>
+                <p style="font-size: 12px;"><strong>Comentario:</strong> <?= htmlspecialchars($_POST['comentario'] ?? 'N/A'); ?></p>
                 <p>_____________________________________________</p>
                 <p style="font-size: 12px; padding-top: 10px;"><strong>Data do agendamento:</strong> N/A</p>
                 <p style="font-size: 12px;"><strong>Comentário:</strong> NF 101010 - 102030 TODDY 7925</p>

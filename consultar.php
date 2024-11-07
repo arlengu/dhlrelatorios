@@ -63,7 +63,7 @@ $data = array(
     LEFT JOIN dscmst dsts ON dsts.colval = tr.trlr_stat AND dsts.colnam = 'trlr_stat' AND dsts.locale_id = 'US_ENGLISH'
     LEFT JOIN dscmst dstt ON dstt.colnam = 'trlr_typ' AND dstt.LOCALE_ID = 'US_ENGLISH' AND dstt.colval = tr.trlr_typ
     LEFT JOIN nota_carreta ntc ON ntc.TRLR_ID = tr.trlr_id
-    WHERE rci.invnum = '{$invnum}'"]
+    WHERE rci.invnum = '{$invnum}' OR tr.trlr_num = '{$invnum}'"]
 );
 
 // Credenciais para autenticação
@@ -89,19 +89,34 @@ $options = array(
 $context = stream_context_create($options);
 $response = file_get_contents($url, false, $context);
 
-if ($response === FALSE) {
-    echo json_encode(["error" => "Erro na requisição"]);
-} else {
-    $rows = str_getcsv($response, "\n");
-    $header = str_getcsv(array_shift($rows)); // Pega o cabeçalho
-    $dataArray = [];
-
-    foreach ($rows as $row) {
-        $rowData = str_getcsv($row);
-        $dataArray[] = array_combine($header, $rowData); // Combina cabeçalho com os dados
-    }
-
-    // Retorna os dados em formato JSON
-    echo json_encode($dataArray);
+// Verifica se houve um erro na requisição ou se a resposta está vazia
+if ($response === FALSE || empty($response)) {
+    echo json_encode(["error" => "Erro na requisição ou resposta vazia"]);
+    exit;
 }
+
+// Tenta processar a resposta CSV
+$rows = str_getcsv($response, "\n");
+
+if ($rows === false || count($rows) == 0) {
+    echo json_encode(["error" => "Resposta vazia ou formato inválido"]);
+    exit;
+}
+
+// Processa a resposta do CSV
+$header = str_getcsv(array_shift($rows)); // Pega o cabeçalho
+$dataArray = [];
+
+foreach ($rows as $row) {
+    $rowData = str_getcsv($row);
+    if (count($rowData) == count($header)) {
+        $dataArray[] = array_combine($header, $rowData); // Combina cabeçalho com os dados
+    } else {
+        // Se o número de colunas não corresponder, pode ser necessário fazer um tratamento adicional
+        continue;
+    }
+}
+
+// Retorna os dados em formato JSON
+echo json_encode($dataArray);
 ?>

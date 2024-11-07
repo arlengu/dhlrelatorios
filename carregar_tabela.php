@@ -5,6 +5,14 @@ error_reporting(E_ALL);
 
 $url = 'https://score-msc.mysupplychain.dhl.com/score_msc/external/V1/report/160590/run/sync?Content-Type=application%2Fjson&Accept=text%2Fcsv';
 
+// Inclui o autoloader do Composer e o arquivo de configuração
+require 'vendor/autoload.php';
+$config = require 'Configuracoes/config.php';
+
+// Acessa as configurações do banco de dados
+$password = $config['api_password']; // Aqui está a senha da API
+$user = $config['api_user'];
+
 $data = array(
     'myQuery' => [" 
     WITH nota_carreta AS (
@@ -32,8 +40,8 @@ $data = array(
         GROUP BY rcl.invnum
     )
     
-    SELECT
-        rci.invnum,
+    SELECT DISTINCT
+        --rci.invnum,
         tr.trlr_num,
         dsts.lngdsc AS trlr_stat,
         tr.trlr_broker,
@@ -56,13 +64,11 @@ $data = array(
     LEFT JOIN dscmst dstt ON dstt.colnam = 'trlr_typ' AND dstt.LOCALE_ID = 'US_ENGLISH' AND dstt.colval = tr.trlr_typ
     LEFT JOIN nota_carreta ntc ON ntc.TRLR_ID = tr.trlr_id
     WHERE
-        trlr_stat <> 'D' AND trlr_stat <> 'C'
+        trlr_stat <> 'D'
     "],
     'body' => ['']
 );
 
-$user = 'arbarret';
-$password = '3KT8zx203@Brasil1';
 $credenciais = $user . ':' . $password;
 $credenciaisBase64 = base64_encode($credenciais);
 

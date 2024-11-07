@@ -70,7 +70,7 @@ $data = array(
     LEFT JOIN dscmst dsts ON dsts.colval = tr.trlr_stat AND dsts.colnam = 'trlr_stat' AND dsts.locale_id = 'US_ENGLISH'
     LEFT JOIN dscmst dsis ON dsis.colnam = 'invsts' AND dsis.colval = rcl.rcvsts AND dsis.LOCALE_ID = 'US_ENGLISH'
     WHERE
-        rcl.invnum = '{$invnum}'
+        rcl.invnum = '{$invnum}' OR tr.trlr_num = '{$invnum}'
     ORDER BY
         rcl.prtnum
     "],

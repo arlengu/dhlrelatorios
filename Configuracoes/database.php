@@ -8,6 +8,9 @@ error_reporting(E_ALL);
 // Carrega as configurações do banco de dados
 $config = require 'config.php';
 
+// Define o fuso horário do PHP para Brasília
+date_default_timezone_set('America/Sao_Paulo');
+
 /**
  * Cria uma conexão PDO com o banco de dados.
  *
