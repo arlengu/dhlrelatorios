@@ -4,6 +4,13 @@
     Deny from all
 </Files>
 
+# Bloquear o acesso a todos os arquivos dentro da pasta Configuracoes
+<Directory "Configuracoes">
+    Order Deny,Allow
+    Deny from all
+</Directory>
+
+
 # Desabilitar o acesso a arquivos de configuração
 <FilesMatch "(^\.|wp-config\.php)">
     Order Deny,Allow
@@ -93,6 +100,24 @@ Header set X-Frame-Options "SAMEORIGIN"
         Deny from all
     </FilesMatch>
 </Directory>
+
+# Bloquear acesso a todos os arquivos dentro da pasta Configuracoes
+<FilesMatch "^Configuracoes/">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+<Directory "/home/site/wwwroot/Configuracoes">
+    Order Deny,Allow
+    Deny from all
+</Directory>
+
+location ~ ^/Configuracoes/ {
+    deny all;
+    return 404;
+}
+
+
 
 # Redirecionar requisições de URLs de fontes desconhecidas ou maliciosas
 RewriteCond %{HTTP_REFERER} ^https?://(.*\.xyz|.*\.ru|.*\.cn) [NC]
